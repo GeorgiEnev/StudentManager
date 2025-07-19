@@ -1,0 +1,82 @@
+﻿@model StudentManager.Models.Exam
+
+@{
+    ViewBag.Title = "Edit Exam";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/exam-edit.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+}
+
+<div class="edit-exam-container">
+    <!-- Floating Particles Background -->
+    <div class="particles">
+        @for (int i = 0; i < 15; i++)
+        {
+            <div class="particle" style="
+                    width: @(new Random().Next(2, 6))px;
+                    height: @(new Random().Next(2, 6))px;
+                    background: hsl(@(new Random().Next(230, 280)), 80%, 70%);
+                    top: @(new Random().Next(0, 100))%;
+                    left: @(new Random().Next(0, 100))%;
+                    animation-duration: @(new Random().Next(20, 40))s;
+                    animation-delay: @(new Random().Next(0, 10))s;
+                "></div>
+        }
+    </div>
+
+    <div class="edit-exam-card">
+        <div class="edit-exam-header">
+            <h2><i class="fas fa-edit"></i> Edit Exam</h2>
+        </div>
+
+        <div class="edit-exam-body">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(m => m.Id)
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.SubjectId, "Subject", new { @class = "form-label" })
+                    @Html.DropDownListFor(m => m.SubjectId, (SelectList)ViewBag.SubjectId, "Select Subject", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.SubjectId, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.ExamDate, new { @class = "form-label" })
+                    @Html.EditorFor(m => m.ExamDate, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(m => m.ExamDate, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Location, new { @class = "form-label" })
+                    @Html.EditorFor(m => m.Location, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(m => m.Location, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="edit-actions">
+                    <button type="submit" class="btn btn-save">
+                        <i class="fas fa-save"></i> Save Changes
+                    </button>
+                    <a href="@Url.Action("Index")" class="btn btn-cancel">
+                        <i class="fas fa-times"></i> Cancel
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Enhance date picker
+        document.addEventListener('DOMContentLoaded', function() {
+            const dateInput = document.querySelector('input[type="datetime-local"]');
+            if (dateInput) {
+                dateInput.style.padding = '1rem';
+                dateInput.style.fontFamily = 'inherit';
+            }
+        });
+    </script>
+}

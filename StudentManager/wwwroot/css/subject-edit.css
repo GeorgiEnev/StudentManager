@@ -1,0 +1,276 @@
+﻿/* SubjectEdit.css - Clean Version */
+:root {
+    --primary-color: #4A90E2;
+    --secondary-color: #50E3C2;
+    --bg-grad-start: #142850;
+    --bg-grad-end: #274690;
+    --danger-color: #EB455F;
+    --text-color: #2D3748;
+    --border-radius: 10px;
+    --transition-speed: 0.3s;
+    --card-padding: 2.5rem;
+    --input-padding: 1.25rem;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes gradientShift {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+@keyframes ripple {
+    0% {
+        transform: scale(0);
+        opacity: 0.5;
+    }
+
+    100% {
+        transform: scale(20);
+        opacity: 0;
+    }
+}
+
+.edit-subject-container {
+    background: linear-gradient(135deg, var(--bg-grad-start), var(--bg-grad-end));
+    background-size: 200% 200%;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 2rem;
+    animation: fadeInDown 0.6s ease-out, gradientShift 12s ease infinite;
+}
+
+.edit-subject-card {
+    background: #fff;
+    border-radius: var(--border-radius);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 550px;
+    overflow: hidden;
+    transition: transform var(--transition-speed) ease;
+}
+
+    .edit-subject-card:hover {
+        transform: translateY(-5px);
+    }
+
+.edit-subject-header {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: #fff;
+    text-align: center;
+    padding: var(--card-padding);
+}
+
+    .edit-subject-header h2 {
+        margin: 0;
+        font-size: 1.7rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem;
+    }
+
+.edit-subject-body {
+    padding: var(--card-padding);
+    display: grid;
+    gap: 1.75rem;
+}
+
+.form-floating {
+    position: relative;
+    margin: 0;
+}
+
+.form-control {
+    width: 100%;
+    padding: calc(var(--input-padding) + 0.5rem) var(--input-padding) var(--input-padding);
+    font-size: 1.05rem;
+    border: 1px solid #E2E8F0;
+    border-radius: var(--border-radius);
+    background: #F8FAFC;
+    transition: all var(--transition-speed) ease;
+}
+
+    .form-control:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 0.25rem rgba(74, 144, 226, 0.2);
+        background: #fff;
+        outline: none;
+    }
+
+label {
+    position: absolute;
+    top: var(--input-padding);
+    left: var(--input-padding);
+    color: var(--text-color);
+    font-weight: 500;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    pointer-events: none;
+    transform-origin: left center;
+    background: transparent;
+    padding: 0 0.25rem;
+    margin-left: -0.25rem;
+}
+
+.form-control:focus + label,
+.form-control:not(:placeholder-shown) + label {
+    transform: translateY(-1.2rem) scale(0.85);
+    background: linear-gradient(to bottom, #fff 50%, transparent 50%);
+    padding: 0 0.5rem;
+    left: calc(var(--input-padding) - 0.25rem);
+    color: var(--primary-color);
+}
+
+.text-danger {
+    color: var(--danger-color);
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    display: block;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.edit-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1.25rem;
+    margin-top: 1rem;
+}
+
+.btn {
+    position: relative;
+    overflow: hidden;
+    border-radius: 50px;
+    padding: 0.9rem 2rem;
+    font-size: 1.05rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 180px;
+    transition: all var(--transition-speed) ease;
+    cursor: pointer;
+    border: none;
+}
+
+    .btn i {
+        font-size: 1.2rem;
+        margin-right: 0.5rem;
+        transition: transform 0.2s ease;
+    }
+
+.btn-save {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3);
+}
+
+    .btn-save:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(6, 182, 212, 0.4);
+    }
+
+    .btn-save::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        transition: all 0.6s ease;
+    }
+
+    .btn-save:hover::before {
+        left: 100%;
+    }
+
+.btn-cancel {
+    background: #fff;
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+}
+
+    .btn-cancel:hover {
+        background: #F7FAFC;
+        transform: translateY(-3px);
+        box-shadow: 0 4px 10px rgba(74, 144, 226, 0.1);
+    }
+
+    .btn-cancel::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 5px;
+        height: 5px;
+        background: rgba(74, 144, 226, 0.1);
+        opacity: 0;
+        border-radius: 100%;
+        transform: scale(1) translate(-50%, -50%);
+        transform-origin: 50% 50%;
+    }
+
+    .btn-cancel:hover::after {
+        animation: ripple 0.6s ease-out;
+    }
+
+.btn:hover i {
+    transform: scale(1.15);
+}
+
+@media (max-width: 768px) {
+    :root {
+        --card-padding: 2rem;
+        --input-padding: 1rem;
+    }
+
+    .edit-subject-container {
+        padding: 1.5rem;
+    }
+
+    .edit-actions {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .btn {
+        width: 100%;
+        min-width: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --card-padding: 1.75rem;
+    }
+
+    .edit-subject-header h2 {
+        font-size: 1.5rem;
+    }
+
+    .form-control {
+        padding: calc(var(--input-padding) + 0.4rem) var(--input-padding) var(--input-padding);
+    }
+
+    label {
+        top: calc(var(--input-padding) - 0.1rem);
+    }
+}

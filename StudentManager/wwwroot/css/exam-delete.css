@@ -1,0 +1,142 @@
+﻿/* ExamDelete.css - With Animated Background */
+
+:root {
+    --bg-grad-start: #3A1C71;
+    --bg-grad-end: #EB455F;
+    --danger-grad-start: #FF6B6B;
+    --danger-grad-end: #E74C3C;
+    --primary-color: #06B6D4;
+    --secondary-color: #0EA5E9;
+}
+
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%
+    }
+
+    50% {
+        background-position: 100% 50%
+    }
+
+    100% {
+        background-position: 0% 50%
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.delete-exam-container {
+    background: linear-gradient( 135deg, var(--bg-grad-start), var(--bg-grad-end), #3A1C71 );
+    background-size: 200% 200%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    animation: fadeIn 0.6s ease-out, gradientShift 8s ease infinite;
+}
+
+.delete-exam-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    overflow: hidden;
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: transform 0.3s ease;
+}
+
+    .delete-exam-card:hover {
+        transform: translateY(-5px);
+    }
+
+.delete-exam-header {
+    background: linear-gradient(135deg, var(--danger-grad-start), var(--danger-grad-end));
+    color: white;
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.delete-exam-body {
+    padding: 2rem;
+}
+
+.warning-message {
+    color: var(--danger-grad-end);
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.exam-details dt {
+    font-weight: 600;
+    color: #555;
+    padding: 0.5rem 0;
+}
+
+.exam-details dd {
+    padding: 0.5rem 0;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.delete-actions {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+/* Subject Page Button Styles */
+.btn-delete {
+    background: linear-gradient(135deg, var(--danger-grad-start), var(--danger-grad-end));
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    color: white;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+    transition: all 0.3s ease;
+}
+
+    .btn-delete:hover {
+        background: linear-gradient(135deg, var(--danger-grad-end), var(--danger-grad-start));
+        transform: translateY(-2px);
+    }
+
+.btn-cancel {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border: none;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+    .btn-cancel:hover {
+        background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+        transform: translateY(-2px);
+    }
+
+/* Mobile responsive */
+@media (max-width: 576px) {
+    .delete-actions {
+        flex-direction: column;
+    }
+
+    .btn-delete, .btn-cancel {
+        width: 100%;
+    }
+}

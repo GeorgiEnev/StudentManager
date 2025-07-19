@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - StudentManager</title>
+    <!-- Load Font Awesome first for the button icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <!-- Then load Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- Load Inter font from Google -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Then your layout CSS -->
+    <link rel="stylesheet" href="~/css/layout.css" asp-append-version="true" />
+    <!-- Finally, your custom styles via section -->
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+<body>
+    <div class="background-animation"></div>
+    <header>
+        <nav class="navbar">
+            <a class="navbar-brand" asp-controller="Home" asp-action="Index">
+                <i class="bi bi-journal-bookmark"></i> StudentManager
+            </a>
+
+            @if (IsSectionDefined("AuthButtons"))
+            {
+                @RenderSection("AuthButtons")
+            }
+            else if (ViewContext.RouteData.Values["controller"]?.ToString() == "Home" &&
+            ViewContext.RouteData.Values["action"]?.ToString() == "Index")
+            {
+                @if (!User.Identity.IsAuthenticated)
+                {
+                    <div class="auth-buttons">
+                        <a asp-controller="Account" asp-action="Login" class="auth-btn btn-login">
+                            <i class="bi bi-box-arrow-in-right"></i> Login
+                        </a>
+                        <a asp-controller="Account" asp-action="Register" class="auth-btn btn-signup">
+                            <i class="bi bi-person-plus"></i> Sign Up
+                        </a>
+                    </div>
+                }
+                else
+                {
+                    <div class="user-dropdown">
+                        <button class="user-btn">
+                            <i class="bi bi-person-circle"></i> @User.Identity.Name
+                        </button>
+                        <div class="dropdown-menu">
+                            <a asp-controller="Account" asp-action="Profile" class="dropdown-item">
+                                <i class="bi bi-person"></i> Profile
+                            </a>
+                            <a asp-controller="Account" asp-action="Logout" class="dropdown-item">
+                                <i class="bi bi-box-arrow-right"></i> Logout
+                            </a>
+                        </div>
+                    </div>
+                }
+            }
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <main role="main">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="footer">
+        &copy; @DateTime.Now.Year - StudentManager
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Ensure Font Awesome icons are properly replaced if needed
+            if (typeof window.FontAwesome !== 'undefined') {
+                window.FontAwesome.dom.i2svg();
+            }
+        });
+    </script>
+</body>
+</html>

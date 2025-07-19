@@ -1,0 +1,287 @@
+﻿/* Modern Glassmorphic Design System */
+:root {
+    --primary: #3aafa9;
+    --primary-dark: #2b7a78;
+    --primary-light: #def2f1;
+    --accent: #6a0572;
+    --accent-light: #8a0b9a;
+    --secondary: #4CA1AF;
+    --text-dark: #17252A;
+    --text-light: #FEFFFF;
+    --glass-white: rgba(255, 255, 255, 0.15);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.15);
+    --shadow-lg: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: var(--text-dark);
+    display: flex;
+    flex-direction: column;
+    line-height: 1.6;
+    position: relative;
+    overflow-x: hidden;
+    background-color: var(--primary-dark);
+}
+
+.background-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    background: linear-gradient(135deg, var(--primary), var(--primary-dark), var(--secondary));
+    background-size: 400% 400%;
+    animation: gradientBG 20s ease infinite;
+    opacity: 0.9;
+}
+
+@keyframes gradientBG {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    align-items: center;
+    padding: 1rem 2rem;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--glass-border);
+    position: relative;
+    z-index: 10;
+}
+
+.navbar-brand {
+    font-weight: 600;
+    color: var(--text-light);
+    text-decoration: none;
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: var(--transition);
+}
+
+    .navbar-brand:hover {
+        transform: translateY(-1px);
+        text-shadow: 0 2px 5px rgba(255, 255, 255, 0.3);
+    }
+
+/* Auth Buttons (Homepage Only) */
+.auth-buttons {
+    display: flex;
+    gap: 0.75rem;
+    margin-left: auto;
+}
+
+.auth-btn {
+    position: relative;
+    padding: 0.6rem 1.25rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: var(--transition);
+    overflow: hidden;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: var(--shadow-sm);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.btn-login {
+    background: var(--glass-white);
+    color: var(--text-light);
+    border: 1px solid var(--glass-border);
+}
+
+    .btn-login:hover {
+        background: rgba(255, 255, 255, 0.25);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-login::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        transition: 0.5s;
+    }
+
+    .btn-login:hover::before {
+        left: 100%;
+    }
+
+.btn-signup {
+    background: linear-gradient(135deg, var(--accent), var(--secondary));
+    color: var(--text-light);
+    border: none;
+}
+
+    .btn-signup:hover {
+        background: linear-gradient(135deg, var(--accent-light), var(--secondary));
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(106, 5, 114, 0.4);
+    }
+
+/* User Dropdown (Logged In) */
+.user-dropdown {
+    position: relative;
+    margin-left: auto;
+}
+
+.user-btn {
+    background: var(--glass-white);
+    color: var(--text-light);
+    padding: 0.6rem 1.25rem;
+    border-radius: 50px;
+    border: 1px solid var(--glass-border);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    transition: var(--transition);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+    .user-btn:hover {
+        background: rgba(255, 255, 255, 0.25);
+    }
+
+.dropdown-menu {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 0.5rem);
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 8px;
+    box-shadow: var(--shadow-lg);
+    padding: 0.5rem 0;
+    min-width: 180px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: var(--transition);
+    z-index: 100;
+}
+
+.user-dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1.25rem;
+    color: var(--text-dark);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+    .dropdown-item:hover {
+        background: rgba(0, 0, 0, 0.05);
+        color: var(--primary);
+    }
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    padding: 2rem;
+    animation: fadeIn 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    position: relative;
+    z-index: 1;
+}
+
+/* Footer */
+.footer {
+    background: rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 1.5rem;
+    color: var(--text-light);
+    text-align: center;
+    font-size: 0.9rem;
+    border-top: 1px solid var(--glass-border);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem;
+    }
+
+    .auth-buttons, .user-dropdown {
+        margin-left: 0;
+        margin-top: 1rem;
+        width: 100%;
+    }
+
+    .auth-buttons {
+        flex-direction: column;
+    }
+
+    .auth-btn, .user-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .dropdown-menu {
+        width: 100%;
+    }
+
+    .main-content {
+        padding: 1.5rem;
+    }
+}

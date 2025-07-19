@@ -1,0 +1,60 @@
+﻿@model StudentManager.Models.Exam
+
+@{
+    ViewBag.Title = "Exam Details";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/subject-details.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+}
+
+<div class="exam-details-container">
+    <!-- Floating Particles Background -->
+    <div class="exam-details-particles">
+        @for (int i = 0; i < 12; i++)
+        {
+            <div class="exam-details-particle" style="
+                    width: @(new Random().Next(2, 6))px;
+                    height: @(new Random().Next(2, 6))px;
+                    background: hsl(@(new Random().Next(230, 280)), 80%, 70%);
+                    top: @(new Random().Next(0, 100))%;
+                    left: @(new Random().Next(0, 100))%;
+                    animation-duration: @(new Random().Next(20, 40))s;
+                    animation-delay: @(new Random().Next(0, 10))s;
+                "></div>
+        }
+    </div>
+
+    <div class="exam-details-card">
+        <div class="exam-details-header">
+            <h2><i class="fas fa-info-circle"></i> Exam Details</h2>
+        </div>
+
+        <div class="exam-details-body">
+            <ul class="exam-details-list">
+                <li class="exam-details-item">
+                    <span class="exam-details-label">@Html.DisplayNameFor(m => m.Subject.Name)</span>
+                    <span class="exam-details-value">@Html.DisplayFor(m => m.Subject.Name)</span>
+                </li>
+                <li class="exam-details-item">
+                    <span class="exam-details-label">@Html.DisplayNameFor(m => m.ExamDate)</span>
+                    <span class="exam-details-value">@Html.DisplayFor(m => m.ExamDate)</span>
+                </li>
+                <li class="exam-details-item">
+                    <span class="exam-details-label">@Html.DisplayNameFor(m => m.Location)</span>
+                    <span class="exam-details-value">@Html.DisplayFor(m => m.Location)</span>
+                </li>
+            </ul>
+
+            <div class="exam-details-actions">
+                <a href="@Url.Action("Edit", new { id = Model.Id })" class="btn-details btn-edit">
+                    <i class="fas fa-edit"></i> Edit Exam
+                </a>
+                <a href="@Url.Action("Index")" class="btn-details btn-back">
+                    <i class="fas fa-arrow-left"></i> Back to List
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

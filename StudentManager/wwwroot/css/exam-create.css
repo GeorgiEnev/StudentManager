@@ -1,0 +1,406 @@
+﻿/* Cyberpunk Exam Creation Form Styles */
+:root {
+    --electric-blue: #00f2fe;
+    --neon-purple: #7928ca;
+    --cyber-pink: #ff0080;
+    --holographic-teal: #00ffcc;
+    --dark-space: #0f0f1a;
+    --cyber-gray: #1a1a2e;
+}
+
+@keyframes gradient-pulse {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes holographic-glow {
+    0% {
+        box-shadow: 0 0 10px rgba(0,242,254,0.5);
+    }
+
+    50% {
+        box-shadow: 0 0 20px rgba(121,40,202,0.8), 0 0 30px rgba(255,0,128,0.6);
+    }
+
+    100% {
+        box-shadow: 0 0 10px rgba(0,242,254,0.5);
+    }
+}
+
+@keyframes float-up {
+    0% {
+        transform: translateY(10px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes particle-fall {
+    0% {
+        transform: translateY(-100px);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 0.6;
+    }
+
+    90% {
+        opacity: 0.6;
+    }
+
+    100% {
+        transform: translateY(100vh);
+        opacity: 0;
+    }
+}
+
+.cyber-form-container {
+    perspective: 1000px;
+    max-width: 600px;
+    margin: 0 auto;
+    width: 100%;
+    padding: 2rem;
+}
+
+.cyber-card {
+    background: rgba(15, 15, 26, 0.85);
+    backdrop-filter: blur(12px);
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 2.5rem;
+    transform-style: preserve-3d;
+    transition: all 0.5s cubic-bezier(0.175,0.885,0.32,1.275);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    animation: float-up 0.8s ease-out, holographic-glow 4s infinite;
+    position: relative;
+    overflow: hidden;
+}
+
+    .cyber-card:hover {
+        transform: translateY(-5px) rotateX(2deg) rotateY(2deg);
+        box-shadow: 0 15px 45px rgba(121,40,202,0.4);
+    }
+
+    .cyber-card::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient( to bottom right, rgba(0,242,254,0.1) 0%, transparent 50%, rgba(255,0,128,0.1) 100% );
+        transform: rotate(30deg);
+        animation: gradient-pulse 8s ease infinite;
+        pointer-events: none;
+    }
+
+.cyber-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    position: relative;
+    z-index: 2;
+}
+
+    .cyber-header h2 {
+        font-size: 2rem;
+        font-weight: 800;
+        background: linear-gradient(90deg, var(--electric-blue), var(--cyber-pink));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 0.5rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+
+    .cyber-header p {
+        color: var(--electric-blue);
+        font-size: 0.9rem;
+        opacity: 0.8;
+    }
+
+    .cyber-header::after {
+        content: '';
+        position: absolute;
+        bottom: -1rem;
+        left: 25%;
+        width: 50%;
+        height: 3px;
+        background: linear-gradient(90deg, transparent, var(--holographic-teal), transparent);
+        border-radius: 50%;
+        filter: blur(1px);
+    }
+
+.cyber-input-group {
+    margin-bottom: 1.8rem;
+    position: relative;
+    animation: float-up 0.6s ease-out;
+    animation-fill-mode: backwards;
+    z-index: 2;
+}
+
+    .cyber-input-group:nth-child(1) {
+        animation-delay: 0.1s;
+    }
+
+    .cyber-input-group:nth-child(2) {
+        animation-delay: 0.2s;
+    }
+
+    .cyber-input-group:nth-child(3) {
+        animation-delay: 0.3s;
+    }
+
+.cyber-label {
+    display: block;
+    margin-bottom: 0.8rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--electric-blue);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.cyber-input {
+    width: 100%;
+    padding: 1rem;
+    background: rgba(0,0,0,0.3);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    color: white;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+}
+
+    .cyber-input:focus {
+        outline: none;
+        border-color: var(--holographic-teal);
+        box-shadow: 0 0 0 2px rgba(0,255,204,0.2), inset 0 1px 3px rgba(0,0,0,0.5);
+        background: rgba(0,0,0,0.5);
+    }
+
+.cyber-select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300f2fe'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1rem;
+}
+
+.cyber-time-presets {
+    display: flex;
+    gap: 0.8rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+
+.cyber-time-btn {
+    background: rgba(0,242,254,0.1);
+    border: 1px solid var(--electric-blue);
+    color: var(--electric-blue);
+    padding: 0.5rem 1.2rem;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+    .cyber-time-btn:hover {
+        background: var(--electric-blue);
+        color: var(--dark-space);
+        transform: translateY(-2px);
+    }
+
+    .cyber-time-btn.active {
+        background: var(--cyber-pink);
+        border-color: var(--cyber-pink);
+        color: white;
+    }
+
+.cyber-submit {
+    width: 100%;
+    padding: 1.2rem;
+    background: linear-gradient(135deg, var(--neon-purple), var(--cyber-pink));
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    margin-top: 1.5rem;
+    box-shadow: 0 4px 15px rgba(121,40,202,0.4);
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
+}
+
+    .cyber-submit:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(255,0,128,0.5);
+        background: linear-gradient(135deg, var(--cyber-pink), var(--neon-purple));
+    }
+
+    .cyber-submit::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(to bottom right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0) 100%);
+        transform: rotate(30deg);
+        transition: all 0.6s ease;
+    }
+
+    .cyber-submit:hover::before {
+        left: 100%;
+    }
+
+.cyber-back-link {
+    display: inline-block;
+    margin-top: 2rem;
+    color: var(--electric-blue);
+    font-weight: 600;
+    text-decoration: none;
+    position: relative;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+}
+
+    .cyber-back-link:hover {
+        color: var(--holographic-teal);
+    }
+
+    .cyber-back-link::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--holographic-teal);
+        transition: width 0.3s ease;
+    }
+
+    .cyber-back-link:hover::after {
+        width: 100%;
+    }
+
+.cyber-icon {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--electric-blue);
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.cyber-input-wrapper {
+    position: relative;
+}
+
+.text-danger {
+    color: var(--cyber-pink) !important;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+    display: block;
+    font-weight: 600;
+    text-shadow: 0 0 5px rgba(255,0,128,0.3);
+}
+
+/* Cyberpunk Background */
+.cyber-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: radial-gradient(ellipse at bottom, var(--dark-space) 0%, #000000 100%);
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.cyber-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.cyber-particle {
+    position: absolute;
+    background: linear-gradient(to bottom, hsl(var(--random-hue,200),100%,50%), transparent);
+    animation: particle-fall linear infinite;
+    filter: blur(1px);
+    pointer-events: none;
+}
+
+.cyber-grid-lines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(rgba(0,242,254,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0,242,254,0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .cyber-form-container {
+        padding: 1rem;
+    }
+
+    .cyber-card {
+        padding: 1.5rem;
+    }
+
+    .cyber-header h2 {
+        font-size: 1.5rem;
+    }
+
+    .cyber-time-presets {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .cyber-card {
+        padding: 1.25rem;
+    }
+
+    .cyber-input {
+        padding: 0.8rem;
+    }
+
+    .cyber-submit {
+        padding: 1rem;
+        font-size: 1rem;
+    }
+}

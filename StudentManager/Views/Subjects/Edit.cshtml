@@ -1,0 +1,47 @@
+﻿@model StudentManager.Models.Subject
+
+@{
+    ViewData["Title"] = "Edit Subject";
+    <link rel="stylesheet" href="~/css/subject-edit.css" asp-append-version="true" />
+}
+
+<div class="edit-subject-container">
+    <div class="edit-subject-card">
+        <div class="edit-subject-header">
+            <h2><i class="bi bi-pencil-square"></i>Edit Subject</h2>
+        </div>
+        <div class="edit-subject-body">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-4"></div>
+                <input type="hidden" asp-for="Id" />
+
+                <div class="form-floating mb-4">
+                    <input asp-for="Name" class="form-control" id="name" placeholder=" " />
+                    <label for="name">Subject Name</label>
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="form-floating mb-5">
+                    <input name="TeacherName" class="form-control" id="teacherName"
+                           placeholder=" " value="@Model.Teacher?.FullName" />
+                    <label for="teacherName">Teacher Name</label>
+                </div>
+
+                <div class="edit-actions">
+                    <button type="submit" class="btn btn-save">
+                        <i class="bi bi-check-lg"></i>Save Changes
+                    </button>
+                    <a asp-action="Index" class="btn btn-cancel">
+                        <i class="bi bi-x-lg"></i>Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

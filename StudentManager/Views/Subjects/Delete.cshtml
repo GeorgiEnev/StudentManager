@@ -1,0 +1,48 @@
+﻿@model StudentManager.Models.Subject
+
+@{
+    ViewData["Title"] = "Delete Subject";
+    <link rel="stylesheet" href="~/css/subject-delete.css" asp-append-version="true" />
+}
+
+<div class="delete-subject">
+    <div class="card">
+        <div class="card-header">
+            <div class="warning-icon">
+                <i class="bi bi-exclamation-triangle-fill"></i>
+            </div>
+            <h2>Confirm Deletion</h2>
+        </div>
+
+        <div class="card-body">
+            <div class="detail-container">
+                <div class="detail-item">
+                    <span class="detail-label">Subject Name</span>
+                    <span class="detail-value">@Model.Name</span>
+                </div>
+
+                <div class="detail-item">
+                    <span class="detail-label">Teacher</span>
+                    <span class="detail-value">@Model.Teacher?.FullName</span>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <form asp-action="Delete">
+                    <input type="hidden" asp-for="Id" />
+                    <button type="submit" class="btn btn-delete">
+                        <i class="bi bi-trash-fill btn-icon"></i>
+                        <span class="btn-text">Delete Permanently</span>
+                        <div class="btn-hover-effect"></div>
+                    </button>
+                </form>
+
+                <a asp-action="Index" class="btn btn-cancel">
+                    <i class="bi bi-x-circle btn-icon"></i>
+                    <span class="btn-text">Cancel</span>
+                    <div class="btn-hover-effect"></div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,105 @@
+﻿@model StudentManager.Models.Exam
+@{
+    ViewData["Title"] = "Create Exam";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Styles {
+<link rel="stylesheet" href="~/css/exam-create.css" asp-append-version="true" />
+}
+
+
+<div class="exam-dashboard" style="display: flex; align-items: center; min-height: 100vh;">
+    <div class="cyber-form-container">
+        <div class="cyber-card">
+            <div class="cyber-header">
+                <h2><i class="fas fa-plus-circle"></i> CREATE NEW EXAM</h2>
+                <p>Fill in the details below to schedule a new exam</p>
+            </div>
+
+            <form asp-action="Create" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                @Html.AntiForgeryToken()
+
+                <!-- Subject Selection -->
+                <div class="cyber-input-group">
+                    <label asp-for="SubjectId" class="cyber-label">
+                        <i class="fas fa-book" style="margin-right: 8px;"></i>
+                        SUBJECT
+                    </label>
+                    <div class="cyber-input-wrapper">
+                        <select asp-for="SubjectId" asp-items="ViewBag.SubjectId" class="cyber-input cyber-select" id="SubjectId">
+                            <option value="">Select Subject</option>
+                        </select>
+                        <i class="fas fa-chevron-down cyber-icon"></i>
+                    </div>
+                    <span asp-validation-for="SubjectId" class="text-danger"></span>
+                </div>
+
+                <!-- Exam Date -->
+                <div class="cyber-input-group">
+                    <label asp-for="ExamDate" class="cyber-label">
+                        <i class="fas fa-calendar-day" style="margin-right: 8px;"></i>
+                        EXAM DATE & TIME
+                    </label>
+                    <div class="cyber-input-wrapper">
+                        <input asp-for="ExamDate" class="cyber-input" id="ExamDate" type="datetime-local" />
+                        <i class="fas fa-clock cyber-icon"></i>
+                    </div>
+                    <span asp-validation-for="ExamDate" class="text-danger"></span>
+                </div>
+
+                <!-- Location -->
+                <div class="cyber-input-group">
+                    <label asp-for="Location" class="cyber-label">
+                        <i class="fas fa-map-marker-alt" style="margin-right: 8px;"></i>
+                        LOCATION
+                    </label>
+                    <input asp-for="Location" class="cyber-input" id="Location" placeholder="Enter exam location (e.g., Room 205, Building A)" />
+                    <span asp-validation-for="Location" class="text-danger"></span>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit"
+                        class="cyber-submit"
+                        onclick="console.log('👉 Submit button CLICKED');">
+                    <i class="fas fa-paper-plane" style="margin-right: 10px;"></i>
+                    CREATE EXAM
+                </button>
+            </form>
+
+            <div style="text-align: center;">
+                <a asp-action="Index" class="cyber-back-link">BACK TO EXAM LIST</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+      console.log("🚀 Create.cshtml script loaded");
+      document.addEventListener('DOMContentLoaded', function() {
+        console.log("📄 DOMContentLoaded");
+
+        const submitBtn = document.querySelector('.cyber-submit');
+        if (submitBtn) {
+          console.log("👍 Found submit button");
+          submitBtn.addEventListener('click', () => {
+            console.log("👉 cyber-submit CLICKED");
+          });
+        } else {
+          console.log("⚠️ Submit button NOT found");
+        }
+
+        const form = document.querySelector('form[action="/Exams/Create"]');
+        if (form) {
+          console.log("👍 Found form[action='/Exams/Create']");
+          form.addEventListener('submit', () => {
+            console.log("🔄 form SUBMIT event fired");
+          });
+        } else {
+          console.log("⚠️ Form[action='/Exams/Create'] NOT found");
+        }
+      });
+    </script>
+}

@@ -1,0 +1,84 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/css/dashboard.css" />
+
+<section class="hero">
+    <div class="container text-center">
+        <h1>Welcome to Student Manager</h1>
+        <p>Your one‑stop platform to organize subjects, create exams, and review all exams at a glance.</p>
+        <div class="btn-group">
+            <a asp-controller="Subjects" class="animated-btn primary">
+                <i data-feather="book"></i> Subjects
+            </a>
+            <a asp-controller="Exams" class="animated-btn primary">
+                <i data-feather="file-text"></i> All Exams
+            </a>
+            <a asp-controller="Exams" asp-action="Create" class="animated-btn secondary">
+                <i data-feather="plus-circle"></i> Add Exam
+            </a>
+            <!-- AI Tutor button -->
+            <a asp-controller="Ai" asp-action="Index" class="animated-btn ai">
+                <i data-feather="cpu"></i> AI Tutor
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="features">
+    <div class="row">
+        <!-- Goal Card -->
+        <div class="feature-card" data-aos="fade-up">
+            <i data-feather="trending-up" style="font-size:3rem; margin-bottom:1rem;"></i>
+            <h3>Goal</h3>
+            <p>"Our goal is to help students stay organized, on track, and stress - free - so they can focus on learning and improving instead."</p>
+        </div>
+
+        <!-- Support Card -->
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+            <i data-feather="calendar" style="font-size:3rem; margin-bottom:1rem;"></i>
+            <h3>Support</h3>
+            <div style="display: grid; grid-template-columns: 1.5rem auto; justify-content: center; row-gap: 0.5rem;">
+                <span>📧</span><span style="margin-left: 0.4rem;">Email: xxxxx@gmail.com</span>
+                <span>📞</span><span style="margin-left: -2rem;">Phone: 0832142121</span>
+                <span>📷</span><span style="margin-left: -0.5rem;">Instagram: instagram1</span>
+                <span>📘</span><span style="margin-left: -0.5rem;">Facebook: facebook2</span>
+            </div>
+        </div>
+
+        <!-- Users Card -->
+        <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
+            <i data-feather="users" style="font-size:3rem; margin-bottom:1rem;"></i>
+            <h3>Active Users</h3>
+            <div class="user-count">600+</div>
+            <p>Join our growing community of students!</p>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script>feather.replace()</script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script> AOS.init({ duration: 800, once: true }); </script>
+
+    <!-- User Counter Animation -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const counter = document.getElementById('userCounter');
+
+            // Restart animation
+            void counter.offsetWidth;
+
+            // Hover effect
+            counter.addEventListener('mouseover', function() {
+                this.style.transform = 'scale(1.05)';
+                setTimeout(() => { this.style.transform = 'scale(1)'; }, 300);
+            });
+
+            // Optional: Animated count-up (uncomment to use)
+        });
+    </script>
+}

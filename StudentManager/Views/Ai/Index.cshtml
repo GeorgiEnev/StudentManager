@@ -1,0 +1,164 @@
+﻿@{
+    ViewData["Title"] = "AI Tutor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="~/css/ai-tutor.css" />
+
+<div class="chat-wrapper">
+    <header class="chat-header">
+        <h2>@ViewData["Title"]</h2>
+    </header>
+
+    <div id="chat-container" class="chat-container">
+        <div class="chat-message bot" style="opacity: 1; transform: none;">
+            <div class="avatar bot">AI</div>
+            <div class="bubble">
+                <div class="message-text">Hello! I'm your AI tutor. Ask me anything, and I'll give you precise answers. If you need explanations, just ask!</div>
+                <div class="timestamp">@DateTime.Now.ToShortTimeString()</div>
+                <div class="gradient-overlay"></div>
+            </div>
+        </div>
+    </div>
+
+    <form id="ai-form" class="chat-input">
+        <textarea id="question" name="question" rows="1" placeholder="Ask your question here..." required></textarea>
+        <button type="submit" title="Send" id="send-button">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M2 21l21-9L2 3v7l15 2-15 2v7z" />
+            </svg>
+        </button>
+    </form>
+</div>
+
+<div class="floating-action">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M17 12l-5-5v3H8v4h4v3l5-5z" />
+    </svg>
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        const chat = $("#chat-container");
+        const textarea = $("#question");
+
+        // Auto-resize textarea
+        function adjustTextareaHeight() {
+            textarea.height('auto').height(Math.min(textarea[0].scrollHeight, 150));
+        }
+
+        textarea.on('input', adjustTextareaHeight);
+
+        // Add ripple effect to button
+        function createRipple(event) {
+            const button = event.currentTarget;
+            const circle = document.createElement("span");
+            const diameter = Math.max(button.clientWidth, button.clientHeight);
+            const radius = diameter / 2;
+
+            circle.style.width = circle.style.height = `${diameter}px`;
+            circle.style.left = `${event.clientX - button.getBoundingClientRect().left - radius}px`;
+            circle.style.top = `${event.clientY - button.getBoundingClientRect().top - radius}px`;
+            circle.classList.add("ripple");
+
+            const ripple = button.getElementsByClassName("ripple")[0];
+            if (ripple) {
+                ripple.remove();
+            }
+
+            button.appendChild(circle);
+        }
+
+        $("#send-button").on("click", createRipple);
+
+        function appendMessage(role, text) {
+            const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            const bubble = $(`
+                <div class="chat-message ${role}">
+                    <div class="avatar ${role}">${role === 'user' ? 'You' : 'AI'}</div>
+                    <div class="bubble">
+                        <div class="message-text">${text}</div>
+                        <div class="timestamp">${time}</div>
+                        <div class="gradient-overlay"></div>
+                    </div>
+                </div>
+            `);
+            chat.append(bubble);
+            chat.stop().animate({ scrollTop: chat[0].scrollHeight }, 400);
+        }
+
+        function showTypingIndicator() {
+            const indicator = $(`
+                <div class="chat-message bot">
+                    <div class="avatar bot">AI</div>
+                    <div class="bubble">
+                        <div class="typing-indicator">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+            `);
+            chat.append(indicator);
+            chat.stop().animate({ scrollTop: chat[0].scrollHeight }, 400);
+            return indicator;
+        }
+
+        function removeTypingIndicator(indicator) {
+            indicator.fadeOut(200, function() {
+                $(this).remove();
+            });
+        }
+
+        // Handle form submission
+        $("#ai-form").submit(function(e) {
+            e.preventDefault();
+            const q = textarea.val().trim();
+            if (!q) return;
+
+            // Disable form during submission
+            const form = $(this);
+            form.find('button, textarea').prop('disabled', true);
+
+            appendMessage("user", q);
+            textarea.val("").height('auto').focus();
+
+            const typingIndicator = showTypingIndicator();
+
+            // Simulate network delay for demo purposes
+            setTimeout(() => {
+                $.post('@Url.Action("Ask", "Ai")', { question: q })
+                    .done(data => {
+                        removeTypingIndicator(typingIndicator);
+                        appendMessage("bot", data.answer);
+                    })
+                    .fail(xhr => {
+                        removeTypingIndicator(typingIndicator);
+                        const err = `Error: ${xhr.responseText || 'Unable to get response from AI'}`;
+                        appendMessage("bot", err);
+                    })
+                    .always(() => {
+                        form.find('button, textarea').prop('disabled', false);
+                    });
+            }, 800); // Remove this timeout in production
+        });
+
+        // Show/hide floating action button based on scroll position
+        $(window).scroll(function() {
+            if ($(window).scrollTop() + $(window).height() < $(document).height() - 100) {
+                $('.floating-action').addClass('visible');
+            } else {
+                $('.floating-action').removeClass('visible');
+            }
+        });
+
+        // Scroll to bottom when floating action button is clicked
+        $('.floating-action').click(function() {
+            chat.stop().animate({ scrollTop: chat[0].scrollHeight }, 600, 'easeOutExpo');
+        });
+
+        // Initial adjustment
+        adjustTextareaHeight();
+    </script>
+}

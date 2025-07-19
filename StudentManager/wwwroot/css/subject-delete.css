@@ -1,0 +1,261 @@
+﻿:root {
+    /* Color Scheme */
+    --bg-grad-start: #3A1C71;
+    --bg-grad-end: #EB455F;
+    --danger-grad-start: #FF6B6B;
+    --danger-grad-end: #E74C3C;
+    --primary-color: #06B6D4;
+    --secondary-color: #0EA5E9;
+    --warning-yellow: #FFD43B;
+    /* Spacing */
+    --spacing-lg: 2rem;
+    --spacing-md: 1.5rem;
+    --spacing-sm: 1rem;
+}
+
+/* Base Styles */
+.delete-subject {
+    background: linear-gradient(135deg, var(--bg-grad-start), var(--bg-grad-end));
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-md);
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    animation: gradientShift 12s ease infinite;
+    background-size: 200% 200%;
+}
+
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Card Styles */
+.card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 16px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 500px;
+    overflow: hidden;
+    transform: translateY(0);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+    }
+
+.card-header {
+    background: linear-gradient(135deg, var(--danger-grad-start), var(--danger-grad-end));
+    color: white;
+    padding: var(--spacing-md);
+    text-align: center;
+    position: relative;
+}
+
+    .card-header h2 {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin: 0;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+.warning-icon {
+    font-size: 3rem;
+    color: var(--warning-yellow);
+    margin-bottom: 0.5rem;
+    display: inline-block;
+    animation: pulse 1.5s infinite alternate;
+}
+
+@keyframes pulse {
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.1);
+    }
+}
+
+.card-body {
+    padding: var(--spacing-lg);
+}
+
+/* Detail Items */
+.detail-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    margin: var(--spacing-lg) 0;
+}
+
+.detail-item {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(8px);
+    border-radius: 10px;
+    padding: var(--spacing-sm);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+    .detail-item:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    }
+
+.detail-label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #666;
+    margin-bottom: 0.3rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.detail-value {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+    line-height: 1.4;
+}
+
+/* Action Buttons - FINAL POLISHED VERSION */
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-lg);
+}
+
+.btn {
+    position: relative;
+    padding: 1.1rem 2.1rem;
+    border-radius: 50px;
+    font-weight: 600;
+    border: none;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 200px;
+    z-index: 1;
+    color: white;
+}
+
+.btn-icon {
+    font-size: 1.25rem;
+    margin-right: 0.75rem;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.btn-text {
+    font-size: 1.05rem;
+    letter-spacing: 0.3px;
+    position: relative;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.btn-hover-effect {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+    z-index: 1;
+}
+
+.btn-delete {
+    background: linear-gradient(135deg, var(--danger-grad-start), var(--danger-grad-end));
+    box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+}
+
+.btn-cancel {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3);
+}
+
+/* Button Hover Effects */
+.btn:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.btn-delete:hover {
+    box-shadow: 0 8px 25px rgba(231, 76, 60, 0.4);
+}
+
+.btn-cancel:hover {
+    box-shadow: 0 8px 25px rgba(6, 182, 212, 0.4);
+}
+
+.btn:hover .btn-icon {
+    transform: scale(1.15) translateX(2px);
+}
+
+.btn:hover .btn-text {
+    letter-spacing: 0.4px;
+}
+
+.btn:hover .btn-hover-effect {
+    transform: translateX(100%);
+}
+
+.btn:active {
+    transform: translateY(1px) scale(0.98);
+}
+
+/* Responsive Design */
+@media (max-width: 576px) {
+    .card {
+        width: 95%;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 1rem 1.5rem;
+    }
+
+    .btn-text {
+        font-size: 1rem;
+    }
+}
+
+@media (prefers-contrast: more) {
+    .card {
+        background: #fff;
+        border: 2px solid #000;
+    }
+
+    .detail-item {
+        background: #fff;
+        border: 2px solid #000;
+    }
+}

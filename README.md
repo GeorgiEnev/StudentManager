@@ -2,8 +2,6 @@
 
 An **ASP.NET Core MVC** application for managing school data—teachers, subjects, and exams—complete with user authentication and an optional AI‑powered study assistant.
 
----
-
 ## Table of Contents
 - [Features](#features)
 - [Tech Stack](#tech-stack)
@@ -17,8 +15,6 @@ An **ASP.NET Core MVC** application for managing school data—teachers, subject
 - [License](#license)
 - [.gitignore Quick Reference](#gitignore-quick-reference)
 
----
-
 ## Features
 - 🗝 **Authentication & Authorization** with ASP.NET Identity  
 - 👩‍🏫 **Teachers** – full CRUD  
@@ -27,8 +23,6 @@ An **ASP.NET Core MVC** application for managing school data—teachers, subject
 - ✨ Modern **glassmorphic UI** with animated background & cards  
 - 📱 Fully **responsive** (desktop → mobile)  
 - 🤖 Optional **AI Study Assistant** (OpenAI ChatGPT)  
-
----
 
 ## Tech Stack
 
@@ -41,8 +35,6 @@ An **ASP.NET Core MVC** application for managing school data—teachers, subject
 | Styling   | Custom CSS, Font Awesome             |
 | AI (opt.) | OpenAI Chat Completion API           |
 
----
-
 ## Prerequisites and Setup
 
 | Tool                | Version  | Purpose                        |
@@ -53,7 +45,4 @@ An **ASP.NET Core MVC** application for managing school data—teachers, subject
 | Node.js (optional)  | 16+      | Front‑end tooling              |
 | SQLite CLI / GUI    | Optional | Inspect `studentmanager.db`     |
 
-### Clone the Repository
-```bash
-git clone https://github.com/<your-username>/StudentManager.git
-cd StudentManager/StudentManager
+

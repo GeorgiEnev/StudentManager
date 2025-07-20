@@ -2,8 +2,6 @@
 
 An **ASP.NET Core MVC** application for managing school data — teachers, subjects, and exams — complete with user authentication and an optional AI‑powered study assistant.
 
----
-
 ## Table of Contents
 1. [Features](#1-features)  
 2. [Tech Stack](#2-tech-stack)  
@@ -17,8 +15,6 @@ An **ASP.NET Core MVC** application for managing school data — teachers,
 10. [License](#10-license)  
 11. [.gitignore Quick Reference](#11-gitignore-quick-reference)  
 
----
-
 ## 1. Features
 - 🗝 **Authentication & Authorization** with ASP.NET Identity  
 - 👩‍🏫 **Teachers** – create / read / update / delete  
@@ -27,8 +23,6 @@ An **ASP.NET Core MVC** application for managing school data — teachers,
 - ✨ Modern **glassmorphic UI** (animated background, floating cards)  
 - 📱 Fully **responsive** (desktop → mobile)  
 - 🤖 Optional **AI Study Assistant** (OpenAI ChatGPT)  
-
----
 
 ## 2. Tech Stack
 
@@ -40,8 +34,6 @@ An **ASP.NET Core MVC** application for managing school data — teachers,
 | Front‑end | Razor • HTML • CSS • jQuery |
 | Styling   | Custom CSS, Font Awesome |
 | AI (opt.) | OpenAI Chat Completion API |
-
----
 
 ## 3. Prerequisites & Setup
 

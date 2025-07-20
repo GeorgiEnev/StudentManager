@@ -1,7 +1,10 @@
 ﻿@model IEnumerable<StudentManager.Models.Exam>
+@using System.Linq
+
 @{
     ViewBag.Title = "Exams";
 }
+
 @section Styles {
     <link rel="stylesheet" href="~/css/exam-index.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
@@ -13,14 +16,14 @@
         @for (int i = 0; i < 20; i++)
         {
             <div class="particle" style="
-                        width: @(new Random().Next(2, 6))px;
-                        height: @(new Random().Next(2, 6))px;
-                        background: hsl(@(new Random().Next(230, 280)), 80%, 70%);
-                        top: @(new Random().Next(0, 100))%;
-                        left: @(new Random().Next(0, 100))%;
-                        animation-duration: @(new Random().Next(20, 50))s;
-                        animation-delay: @(new Random().Next(0, 15))s;
-                    "></div>
+                            width: @(new Random().Next(2, 6))px;
+                            height: @(new Random().Next(2, 6))px;
+                            background: hsl(@(new Random().Next(230, 280)), 80%, 70%);
+                            top: @(new Random().Next(0, 100))%;
+                            left: @(new Random().Next(0, 100))%;
+                            animation-duration: @(new Random().Next(20, 50))s;
+                            animation-delay: @(new Random().Next(0, 15))s;
+                        "></div>
         }
     </div>
 </div>
@@ -38,7 +41,10 @@
                     <p>View and manage all upcoming exams</p>
                 </div>
             </div>
-            @Html.ActionLink("Create New Exam", "Create", null, new { @class = "create-exam-btn" })
+            <a asp-controller="Exams" asp-action="Create" class="create-exam-btn">
+                <i class="fas fa-plus"></i>
+                Create New Exam
+            </a>
         </div>
     </header>
 
@@ -54,7 +60,10 @@
                 </div>
                 <h3>No Exams Scheduled</h3>
                 <p>You don't have any exams scheduled yet. Create your first exam to get started.</p>
-                @Html.ActionLink("Create New Exam", "Create", null, new { @class = "create-exam-btn" })
+                <a asp-controller="Exams" asp-action="Create" class="create-exam-btn">
+                    <i class="fas fa-plus"></i>
+                    Create New Exam
+                </a>
             </div>
         }
         else
@@ -71,22 +80,16 @@
 
                 <div class="exam-card">
                     <span class="status-badge @statusClass">
-                        @if (statusClass == "urgent")
-                        {
-                            <i class="fas fa-exclamation-circle"></i>
+                        @{
+                            var icon = statusClass switch
+                            {
+                                "urgent" => "fas fa-exclamation-circle",
+                                "upcoming" => "fas fa-clock",
+                                "soon" => "fas fa-calendar-day",
+                                _ => "fas fa-check-circle"
+                            };
                         }
-                        else if (statusClass == "upcoming")
-                        {
-                            <i class="fas fa-clock"></i>
-                        }
-                        else if (statusClass == "soon")
-                        {
-                            <i class="fas fa-calendar-day"></i>
-                        }
-                        else
-                        {
-                            <i class="fas fa-check-circle"></i>
-                        }
+                        <i class="@icon"></i>
                         @statusClass.ToUpper()
                     </span>
 
@@ -99,14 +102,8 @@
                     </div>
 
                     <div class="action-buttons">
-                        <a asp-action="Edit" asp-route-id="@item.Id" class="action-btn edit" title="Edit">
-                            <i class="fas fa-edit"></i>
-                            <span class="tooltip">Edit Exam</span>
-                        </a>
-                        <a asp-action="Details" asp-route-id="@item.Id" class="action-btn info" title="Details">
-                            <i class="fas fa-info-circle"></i>
-                            <span class="tooltip">View Details</span>
-                        </a>
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="action-btn edit" title="Edit"><i class="fas fa-edit"></i><span class="tooltip">Edit Exam</span></a>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="action-btn info" title="Details"><i class="fas fa-info-circle"></i><span class="tooltip">View Details</span></a>
                         <form asp-action="Delete" asp-route-id="@item.Id" method="post" class="inline-form">
                             <button type="submit" class="action-btn delete" title="Delete">
                                 <i class="fas fa-trash-alt"></i>
@@ -130,26 +127,17 @@
                 tooltip.className = 'tooltip';
                 tooltip.textContent = title;
                 el.appendChild(tooltip);
-
-                el.addEventListener('mouseenter', () => {
-                    tooltip.classList.add('show');
-                });
-
-                el.addEventListener('mouseleave', () => {
-                    tooltip.classList.remove('show');
-                });
+                el.addEventListener('mouseenter', () => tooltip.classList.add('show'));
+                el.addEventListener('mouseleave', () => tooltip.classList.remove('show'));
             }
         });
 
         // Card hover effects
         document.querySelectorAll('.exam-card').forEach(card => {
-            card.addEventListener('mousemove', (e) => {
+            card.addEventListener('mousemove', e => {
                 const rect = card.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-
-                card.style.setProperty('--mouse-x', `${x}px`);
-                card.style.setProperty('--mouse-y', `${y}px`);
+                card.style.setProperty('--mouse-x', `${e.clientX - rect.left}px`);
+                card.style.setProperty('--mouse-y', `${e.clientY - rect.top}px`);
             });
         });
     </script>
